@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: ms-zuul
+
+server:
+  port: 8090
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+zuul:
+  routes:
+    usuarios:
+      service-id: ms-usuarios
+      path: /api/alumnos/**
+    cursos:
+      service-id: ms-cursos
+      path: /api/cursos/**
+    examenes:
+      service-id: ms-examenes
+      path: /api/examenes/**
+    respuetas:
+      service-id: ms-respuestas
+      path: /api/respuestas/**
