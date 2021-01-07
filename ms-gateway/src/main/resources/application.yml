@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: ms-gateway
+  cloud:
+    gateway:
+      routes[0]:
+        id: ms-usuarios
+        uri: lb://ms-usuarios
+        predicates: Path=/api/alumnos/**
+        filters: StripPrefix=2
+      routes[1]:
+        id: ms-cursos
+        uri: lb://ms-cursos
+        predicates: Path=/api/cursos/**
+        filters: StripPrefix=2
+      routes[2]:
+        id: ms-examenes
+        uri: lb://ms-examenes
+        predicates: Path=/api/examenes/**
+        filters: StripPrefix=2
+      routes[3]:
+        id: ms-respuestas
+        uri: lb://ms-respuestas
+        predicates: Path=/api/respuestas/**
+        filters: StripPrefix=2
+    loadbalancer:
+      ribbon:
+        enabled: false
+
+server:
+  port: 8090
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
