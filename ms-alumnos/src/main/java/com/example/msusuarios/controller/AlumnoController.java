@@ -14,11 +14,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 @RestController
 public class AlumnoController extends CommonController<Alumno, IAlumnoService> {
+
+    @GetMapping("/alumnos-por-curso")
+    public ResponseEntity<?> obtenerAlumnosPorCurso(@RequestParam List<Long> ids) {
+        return ResponseEntity.ok(service.findAllById(ids));
+    }
 
     @GetMapping("/uploads/img/{id}")
     public ResponseEntity<?> verFoto(@PathVariable Long id) {

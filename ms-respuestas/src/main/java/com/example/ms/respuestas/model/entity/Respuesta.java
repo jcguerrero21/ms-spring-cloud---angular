@@ -15,8 +15,11 @@ public class Respuesta {
 
     private String texto;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Transient
     private Alumno alumno;
+
+    @Column(name = "alumno_id")
+    private Long alumnoId;
 
     @OneToOne(fetch = FetchType.LAZY)
     private Pregunta pregunta;
@@ -53,4 +56,11 @@ public class Respuesta {
         this.pregunta = pregunta;
     }
 
+    public Long getAlumnoId() {
+        return alumnoId;
+    }
+
+    public void setAlumnoId(Long alumnoId) {
+        this.alumnoId = alumnoId;
+    }
 }

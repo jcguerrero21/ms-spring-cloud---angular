@@ -1,6 +1,8 @@
 package com.example.ms.cursos.service.impl;
 
 import com.example.commons.service.impl.CommonServiceImpl;
+import com.example.commons.usuarios.entity.Alumno;
+import com.example.ms.cursos.feign.AlumnoFeignClient;
 import com.example.ms.cursos.feign.RespuestaFeignClient;
 import com.example.ms.cursos.model.entity.Curso;
 import com.example.ms.cursos.model.repository.CursoRepository;
@@ -15,6 +17,9 @@ public class CursoServiceImpl extends CommonServiceImpl<Curso, CursoRepository> 
     @Autowired
     private RespuestaFeignClient respuestaFeignClient;
 
+    @Autowired
+    private AlumnoFeignClient alumnoFeignClient;
+
     @Override
     @Transactional(readOnly = true)
     public Curso findCursoByAlumnoId(Long id) {
@@ -22,7 +27,19 @@ public class CursoServiceImpl extends CommonServiceImpl<Curso, CursoRepository> 
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Iterable<Long> obtenerExamenesIdsConRespuestasAlumno(Long alumnoId) {
         return respuestaFeignClient.obtenerExamenesIdsConRespuestasAlumno(alumnoId);
+    }
+
+    @Override
+    public Iterable<Alumno> obtenerAlumnosPorCurso(Iterable<Long> ids) {
+        return alumnoFeignClient.obtenerAlumnosPorCurso(ids);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void eliminarCursoAlumnoPorId(Long id) {
+        repository.eliminarCursoAlumnoPorId(id);
     }
 }

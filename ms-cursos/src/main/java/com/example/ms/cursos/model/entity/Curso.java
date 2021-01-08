@@ -2,6 +2,7 @@ package com.example.ms.cursos.model.entity;
 
 import com.example.commons.examenes.model.entity.Examen;
 import com.example.commons.usuarios.entity.Alumno;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -24,7 +25,11 @@ public class Curso {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = {"curso"}, allowSetters = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CursoAlumno> cursoAlumnos;
+
+    @Transient
     private List<Alumno> alumnos;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -38,6 +43,7 @@ public class Curso {
     public Curso() {
         this.alumnos = new ArrayList<>();
         this.examenes = new ArrayList<>();
+        this.cursoAlumnos = new ArrayList<>();
     }
 
     public Long getId() {
@@ -96,4 +102,19 @@ public class Curso {
         this.examenes.remove(examen);
     }
 
+    public List<CursoAlumno> getCursoAlumnos() {
+        return cursoAlumnos;
+    }
+
+    public void setCursoAlumnos(List<CursoAlumno> cursoAlumnos) {
+        this.cursoAlumnos = cursoAlumnos;
+    }
+
+    public void addCursoAlumno(CursoAlumno cursoAlumno) {
+        this.cursoAlumnos.add(cursoAlumno);
+    }
+
+    public void removeCursoAlumno(CursoAlumno cursoAlumno) {
+        this.cursoAlumnos.remove(cursoAlumno);
+    }
 }

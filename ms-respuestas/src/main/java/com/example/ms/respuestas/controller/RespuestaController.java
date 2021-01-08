@@ -7,6 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 public class RespuestaController {
 
@@ -15,6 +18,9 @@ public class RespuestaController {
 
     @PostMapping
     public ResponseEntity<?> crear(@RequestBody Iterable<Respuesta> respuestas) {
+        respuestas = ((List<Respuesta>)respuestas).stream()
+                .peek(r -> r.setAlumnoId(r.getAlumno().getId()))
+                .collect(Collectors.toList());
         Iterable<Respuesta> respuestasDb = service.saveAll(respuestas);
         return ResponseEntity.status(HttpStatus.CREATED).body(respuestasDb);
     }
