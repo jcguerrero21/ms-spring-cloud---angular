@@ -27,7 +27,6 @@ public class CursoServiceImpl extends CommonServiceImpl<Curso, CursoRepository> 
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Iterable<Long> obtenerExamenesIdsConRespuestasAlumno(Long alumnoId) {
         return respuestaFeignClient.obtenerExamenesIdsConRespuestasAlumno(alumnoId);
     }
@@ -38,7 +37,7 @@ public class CursoServiceImpl extends CommonServiceImpl<Curso, CursoRepository> 
     }
 
     @Override
-    @Transactional(readOnly = false)
+    @Transactional
     public void eliminarCursoAlumnoPorId(Long id) {
         repository.eliminarCursoAlumnoPorId(id);
     }

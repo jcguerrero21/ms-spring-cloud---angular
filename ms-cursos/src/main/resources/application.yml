@@ -12,7 +12,7 @@ spring:
   cloud:
     loadbalancer:
       ribbon:
-        enabled:
+        enabled: false
 
 logging:
   level.org.hibernate.SQL: debug
