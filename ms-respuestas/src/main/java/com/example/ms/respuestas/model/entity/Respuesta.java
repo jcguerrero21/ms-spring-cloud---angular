@@ -14,12 +14,12 @@ public class Respuesta {
 
     private String texto;
 
-    @Transient
+//    @Transient
     private Alumno alumno;
 
     private Long alumnoId;
 
-    @Transient
+//    @Transient
     private Pregunta pregunta;
 
     private Long preguntaId;
