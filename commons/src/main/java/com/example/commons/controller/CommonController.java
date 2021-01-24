@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+//@CrossOrigin({"http://localhost:4200"})
 public class CommonController<E, S extends ICommonService<E>> {
 
     @Autowired

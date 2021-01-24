@@ -1,6 +1,8 @@
 package com.example.msusuarios.model.repository;
 
 import com.example.commons.usuarios.entity.Alumno;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -12,4 +14,7 @@ public interface AlumnoRepository extends PagingAndSortingRepository<Alumno, Lon
             "or upper(a.apellido) like upper(concat('%', ?1, '%'))")
     List<Alumno> findByNombreOrApellido(String term);
 
+    Iterable<Alumno> findAllByOrderByIdAsc();
+
+    Page<Alumno> findAllByOrderByIdAsc(Pageable pageable);
 }

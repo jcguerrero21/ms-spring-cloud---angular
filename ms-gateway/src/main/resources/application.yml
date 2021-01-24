@@ -23,6 +23,18 @@ spring:
         uri: lb://ms-respuestas
         predicates: Path=/api/respuestas/**
         filters: StripPrefix=2
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - 'http://localhost:4200'
+            allowedHeaders:
+              - Content-Type
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
     loadbalancer:
       ribbon:
         enabled: false
